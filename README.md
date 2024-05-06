@@ -86,10 +86,29 @@
 
  - If we were to build this device again, I would try to incorporate alarm systems using buzzers, blinking hazard lamps and make a sophisticated air ventilation system like we all might have in our homes. Robust coding with real time SMS delivery via the Node-Red dashboard would be targeted to intimate emergency contacts and neighbors so that they could quickly attend to the issue. 
 
-### Next Steps
+### Next Steps for Improvement
 
  - Inclusion of an SMS delivery mechanism would complete the loop in terms of alerting not just the user but their emergency contacts as well. 
+ 
+ - Turning off the Air heating system which is causing the gas leak and integrating the control of the heating system with the IoT device. 
 
+ - The data obtained from sensing the air quality and ambient light could be analyzed in terms of weather, environment and power consumption standards and used for improving device performance. Illuminance in the room could be improved and automated based on time-of-day along with the sensor measurements  
+
+### Takeaways from ESE5160
+
+ - We learnt how a complete IoT solution could be designed and delivered in a short span of 3 months even with very less experience in PCB design and firmware programming. 
+
+ - The assignments were crucial in enabling a progressive style of learning which helped us understand topics on the go while developing the project prototype at the same time.
+
+ - The lectures were important to understand the intricacies through experiences of the professor and the slides were very helpful to refer back to when some kind of design/debugging query arises. 
+
+ ### Project Links
+
+ Node Red Instance Link : [Link to Node-Red Dashboard](http://52.254.80.220:1880/ui/#!/1?socketid=4tTUh_S3lkEitOhoAAAV)
+
+ A12G code repository: [Link to A12G Github Repository](https://github.com/ese5160/a12g-firmware-drivers-t21-airlight.git)
+
+ PCBA Altium 365 Link: [Link to Altium 365](https://upenn-eselabs.365.altium.com/designs/9070EB18-5774-43ED-B306-46CECA1679CC#design)
 
 ## 3. Hardware & Software Requirements
 
