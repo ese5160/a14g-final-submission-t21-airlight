@@ -170,11 +170,9 @@ Here are the software requirements for the AirLight IoT-based solution product:
 
 - The project will feature a user-friendly graphical interface to visualize air quality and light intensity. A Node-RED dashboard deployed on an Azure Virtual Machine will enable bi-directional communication, allowing users to monitor parameters, control actuators, and perform firmware updates remotely. This interface enhances user interaction and management of the IoT system.
 
-
 **Requirement Review : Metrics achieved as expected:**
 
     All our sensors and actuators worked as per initial plan. Sensors produced results as per their respective datsheets and the SAM D21 was able to use the function calls of the actuators inside the sensor tasks based on the firmware programmed into it. The RGB LED worked perfectly as the ambient light went below 100lux and turned on. The SERVO motor turned on thereby opening the sliding door of the house model via a rack-pinion gear setup. The SERVO had a small bit of jitter though - that was due to the PWM control not being upto mark on the SERVO.   
-
 
 ## 4. Project Photos & Screenshots
 
@@ -182,11 +180,11 @@ Here are the software requirements for the AirLight IoT-based solution product:
 
 ![House](assets/images/IMG-20240505-WA0050.jpg)
 
-![House1](assets/images/IMG-20240505-WA0046.jpg) 
+![House1](assets/images/IMG-20240505-WA0046.jpg)
 
 ![House2](assets/images/IMG-20240505-WA0043.jpg)
 
-![House3](assets/images/IMG-20240505-WA0034.jpg) 
+![House3](assets/images/IMG-20240505-WA0034.jpg)
 
 ![House4](assets/images/IMG-20240505-WA0042.jpg)
 
@@ -252,7 +250,8 @@ PCBA Altium 365 Link: [Link to Altium 365](https://upenn-eselabs.365.altium.com/
 
 ![Award](assets/images/DemoDay5.JPG)
 
-#### This guy ↓ went Paragliding immediately after :P 
+#### This guy ↓ went Paragliding immediately after :P
+
 **(Just kidding, he had a class \*cries\*)**
 
 ![Suraj](assets/images/Suraj.jpg)
