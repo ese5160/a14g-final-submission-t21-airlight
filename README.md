@@ -230,7 +230,15 @@ Here are the software requirements for the AirLight IoT-based solution product:
 
 ![Detailed System Diagram](assets/images/Detailed_System_Diag.jpeg)
 
-## 5. Project Demo, Recognition and Achievements
+## 5. A12G Codebase
+
+A12G code repository: [Link to A12G Github Repository](https://github.com/ese5160/a12g-firmware-drivers-t21-airlight.git)
+
+Node Red Instance Link : [Link to Node-Red Dashboard](http://52.254.80.220:1880/ui/#!/1?socketid=4tTUh_S3lkEitOhoAAAV)
+
+PCBA Altium 365 Link: [Link to Altium 365](https://upenn-eselabs.365.altium.com/designs/9070EB18-5774-43ED-B306-46CECA1679CC#design)
+
+## 6. Project Demo, Recognition and Achievements
 
 ### Demo Day Recap
 
