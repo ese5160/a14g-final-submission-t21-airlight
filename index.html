@@ -11,7 +11,8 @@
 </head>
 
 <body>
-  <h1 style="padding-left: 220px;">ESE 5160 - IoT Project - AirLight</h1>
+  <h1>ESE 5160 - IoT Project - AirLight</h1>
+  <h1>A smart solution that can save your life</h1>
 
   <p><strong>Team Number:</strong> 21</p>
   <p><strong>Team Name:</strong> AirLight</p>
@@ -27,45 +28,210 @@
   <h2>1. Video Presentation</h2>
 
   <h2>2. Project Summary</h2>
-  
+
   <h3>Device Description</h3>
-  <p></p>
+  <ul>
+    <li>Our device “AirLight” is an IoT (Internet of Things) based Air Quality Monitoring, Alerting and Actuating system
+      incorporated with an Ambient light measurement and modulating system which could be utilized for continuous
+      checking of the Air Quality (ppm/ppb) and Light Intensity(lux) levels at home.</li>
+    <li>The IoT enabled device is coupled with sensors such as CCS811 (Air Quality IC)(offboard), VEML6030 (Ambient
+      Light Sensor)(onboard) to detect; and actuators such as SG92R SERVO motor, Lilypad RGB LED to take necessary
+      action based on the obtained data evaluated against set thresholds and standards.</li>
+    <li>A Node Red dashboard has been implemented to display the monitored data and to communicate bi-directionally
+      delivering Over-the-Air-Firmware-Updates(OTAFU) to the users.</li>
+  </ul>
 
   <h3>Inspiration</h3>
-  <p></p>
+  <ul>
+    <li>Recent incident of two master’s students in the US - passed away due to Carbon Monoxide (CO) poisoning from air
+      heater. A serious gas leak happens every 40 hours in the USA, claims more than 120 per year.</li>
+    <li>The smoke detectors that are generally installed in our houses do not detect the presence of any specific gas
+      except for smoke and heat presence. This leads to false triggering or no alert at all in the case of invisible and
+      non heat generating gas emissions which might be fatal. Very few people understand this and install gas alarms and
+      gas detectors in their houses but that doesn't completely do the trick as well because it just alerts the user
+      through the alarm being raised but no action is immediately taken to save the user. Many a times the user is not
+      completely conscious during sleep even when the loud alarm is raised. So any delay in reacting to the gas presence
+      by taking an evasive action could be critical and lead to death.</li>
+    <li>So our IoT based smart solution tackles this problem by actuating a sliding door which improves the ventilation
+      of the room and also turns on the fan acting like an exhaust. This mechanism gives the user a bit of leeway to
+      escape or assess the situation and take corrective measures while the Air Quality Index of the room is being
+      restored back to normal.</li>
+  </ul>
 
   <h3>Device Functionality</h3>
-  <p></p>
+  <ul>
+    <li>AirLight has an Air Quality Index(AQI) Sensor mounted on one of the walls of the house and an onboard Ambient
+      Light Sensor(ALS) on the PCBA. AQI sensor looks for the presence of Carbon Dioxide(CO2) and Total Volatile Organic
+      Compounds(TVOC) in its vicinity and reports the values in parts per million (ppm) and parts per billion (ppb)
+      respectively every 4.5 seconds to the SAMD21 microcontroller that is mounted and programmed on the PCBA. The ALS
+      sensor gives the lux value every 5 seconds to the SAMD21.</li>
+    <li>These readings are processed by the microcontroller in separate tasks out of which the AQI sensor readings have
+      higher priority than the ALS sensor readings as the air quality index of the room is much more critical than the
+      ambient light. When the CO2 level of the room goes above 3000 ppm or the TVOC level goes above 300 ppb (as per
+      World Health Organization (WHO) recommended levels and permissible exposure limits (PEL)), the SERVO motor is
+      actuated which is connected via a Rack & Pinion gear system to the sliding window/door of the room. The door is
+      opened and the fan is turned on allowing for air flow to improve the air quality. In a case when the AQI readings
+      are nominal and the ambient light levels are too low - <100 lux - the RGB LED is turned on facilitating higher
+        illuminance levels in the room which is recommended as per international standards for living and bed
+        rooms(100-200lux).</li>
+    <li>The entire systems powered by a Li-Ion Battery that lasts for a continuous 5 hours since the nominal current
+      consumption of the device is 300mA and the peak current consumption is 1.1A when the SERVO is actuated. This means
+      that the battery rated to 3.7V with a full charged capacity of 2200mAh can power the device for around 7hrs, but
+      considering the discharge characteristics of the Li-Ion battery, 5hrs of safe operation could be achieved. The IoT
+      device has been tested for 3hrs of continuous operation without any issue.</li>
+    <li>The obtained data of CO2 and TVOC values along with the lux levels in the room are continuously relayed to the
+      MQTT based Node-Red Dashboard which displays the information to the user in real-time. History of the levels is
+      stored on the Azure server and is timestamped and represented through the use of graphs. The user has an option of
+      remotely opening the door of the house through the click of a button on the dashboard or could even turn on the
+      RGB LED through an interactive button. The Node-Red Dashboard also features a functionality to push an
+      over-the-air-firmware-upadte to the IoT Device with latest updates and features if any.</li>
+  </ul>
 
-  <p>The overall workflow of our product is as follows:
-  </p>
+  <img src="assets/images/Detailed_System_Diag.jpeg" width="1000">
 
   <h3>Challenges</h3>
-  <p></p>
+  <p>Most of our challenges were firmware and integration related:</p>
+  <ul>
+    <li> CCS811 Air Quality Sensor Programming
+      <ul>
+        <li>The CCS811 Air Quality Sensor programming wasn't very straightforward and required a lot of registers on the
+          module to be sensitively handled by writing correct sequences at the right instances to enable the sensing.
+        </li>
+        <li>We had to go through a lot of datasheets and programming guides to get this to working. There was one guide
+          that we found which was really helpful in understanding the flow of the sensor. But somehow the application
+          binary that was present on the sensor was erased or was not responding to the register acceses.</li>
+        <li>We solved this through flashing the application binary onto the sensor using an Arduino ATMEGA board for
+          which the code was available open-source on github. The flashed sensor started accessing the registers
+          correctly and we were able to summon measurements from the sensor at specific time intervals.</li>
+      </ul>
+    </li>
+    <li> VEML6030 Ambient Light Sensor Programming
+      <ul>
+        <li>The ambient light sensor requires repeated starts of I2C reads and writes which we didn't know as nothing of
+          that sort was mentioned on the datasheet of this sensor.
+        </li>
+        <li>Upon discussions with Detkin staff and TAs we came to know that a new block of code with repeated starts of
+          I2CRead and I2CWrite was to be written for this purpose. Doing this solved the issue and we were able to take
+          the sensor readings immmediately on the register specified.</li>
+      </ul>
+    </li>
+    <li> Task Handling and Overflow
+      <ul>
+        <li>We were seeing a lot of stack overflows and program getting stuck after a actuating function was being
+          called inside a sensor task.</li>
+        <li>We were able to solve this by playing with the stack sizes of different tasks and also by making sure that
+          the tasks are not blocking each other. Sufficient delay between the tasks was essential in the smooth
+          functionality which was achieved through vTaskDelay feature in FreeRTOS.</li>
+      </ul>
+    </li>
+    <li> SERVO Motor Jitter and Functionality Errors
+      <ul>
+        <li>The SERVO we chose for opening and closing the window was not functioning properly as desired with complete
+          rotation (in its possible range).</li>
+        <li>The reason was because the pulse widths modulation being passed on to it were not perfect and hence its
+          behaviour was erratic. We fixed the issue with a very minute jitter still seen through incorporating for loops
+          to repeatedly passing the PWM signal to the motor when required.
+        </li>
+      </ul>
+    </li>
+    <li> Laser Cutting / 3D Printing of the House Model
+      <ul>
+        <li>Initially we submitted 3D printing request for the House Model. Even though the model fit the size
+          requirements of all the printers in Tangen Hall, Detkin Makerspace, Biotech Commons and Education Commons, the
+          job time was exceeding 24 hours and hence our 3D printing request was getting denied.</li>
+        <li>A workaround we were able to figure out for this was laser cutting the walls, roof and the base of the house
+          and joining them together using acrylic solvent. Another issue faced during this shift from 3D printing to
+          Laser Cutting was that the dimensions created in the 3D CAD model differed from the acrylic sheets available
+          for laser cutting. So a re-work on the CAD design was necessary. We were able to get the model together with
+          all parts glued nicely together as desired.</li>
+      </ul>
+    </li>
+  </ul>
 
-  <h4>1. </h4>
-  <p></p>
-
-  <h3></h3>
-  <p></p>
-
-  <h3></h3>
-  <p></p>
+  <h3>Next Steps for Improvement</h3>
+  <ul>
+    <li>Inclusion of an SMS delivery mechanism would complete the loop in terms of alerting not just the user but their
+      emergency contacts as well.</li>
+    <li>Turning off the Air heating system which is causing the gas leak and integrating the control of the heating
+      system with the IoT device.</li>
+    <li>The data obtained from sensing the air quality and ambient light could be analyzed in terms of weather,
+      environment and power consumption standards and used for improving device performance. Illuminance in the room
+      could be improved and automated based on time-of-day along with the sensor measurements </li>
+  </ul>
 
   <h3>Takeaways from ESE5160</h3>
+  <ul>
+    <li>We learnt how a complete IoT solution could be designed and delivered in a short span of 3 months even with very
+      less experience in PCB design and firmware programming.</li>
+    <li>The assignments were crucial in enabling a progressive style of learning which helped us understand topics on
+      the go while developing the project prototype at the same time.</li>
+    <li>The lectures were important to understand the intricacies through experiences of the professor and the slides
+      were very helpful to refer back to when some kind of design/debugging query arises.</li>
+  </ul>
 
   <h3>Project Codebase Links</h3>
   <ul>
-    <li><strong>Node-RED web instance:</strong> <a href="">Node Red Web</a></li>
-    <li><strong>A12G Final Code Repository:</strong> <a href="">AirLight GitHub Repository</a></li>
-    <li><strong>Final PCBA on Altium 365:</strong> <a href="">AirLight PCB Altium 365 Link</a> </li>
+    <li><strong>Node-RED web instance:</strong> <a
+        href="http://52.254.80.220:1880/ui/#!/1?socketid=4tTUh_S3lkEitOhoAAAV">Link to Node-Red Dashboard</a></li>
+    <li><strong>A12G Final Code Repository:</strong> <a
+        href="https://github.com/ese5160/a12g-firmware-drivers-t21-airlight.git">Link to AirLight Github Repository</a>
+    </li>
+    <li><strong>Final PCBA on Altium 365:</strong> <a
+        href="https://upenn-eselabs.365.altium.com/designs/9070EB18-5774-43ED-B306-46CECA1679CC#design">Link to Altium
+        365</a> </li>
   </ul>
 
   <h2>3. Hardware & Software Requirements</h2>
 
-  <h3>Hardware Requirements</h3>
+  <h3>3.1 Hardware Requirements</h3>
+  <p>The hardware requirements for the AirLight IoT-based solution product are outlined as follows:</p>
+  <ul>
+    <li><strong>HRS 01: Microcontroller Unit</strong>: The project will be powered by the SAMW25 microcontroller, which
+      integrates two co-processors: SAMD21G18A for processing and ATWINC1500 for WiFi capabilities.</li>
+    <li><strong>HRS 02: Power Module</strong>: The IoT device will employ the BQ24075 charging circuit, compatible with
+      a 4.4V to 5.25V USB power source. This setup will be complemented by a 3.3V 2200mAh Lithium Ion battery. To ensure
+      efficient operation, all components will be powered at 3.3V. A buck converter will be integrated into the system
+      design to achieve stable 3.3V output.</li>
+    <li><strong>HRS 03: Air Quality IC</strong>: Air quality will be monitored using the CCS811 Air Quality IC (3.3V),
+      measuring levels in ppm (parts per million) or ppb (parts per billion). The microcontroller will interact with
+      this sensor via the I2C protocol. The sensor has a CO2 measurement range from 400ppm to 29206ppm and TVOC
+      measurement from 0ppb to 32768ppb, with an accuracy of approximately ±5%.</li>
+    <li><strong>HRS 04: Ambient Light Sensor</strong>: Ambient light intensity will be monitored using the VEML6030
+      sensor (3.3V), communicating with the microcontroller via I2C. This onboard sensor has a dynamic range of 0 lux to
+      ~140 kilo lux, offering high resolution down to 0.0042 lx/counts.</li>
+    <li><strong>HRS 05: Servo Motor</strong>: Based on readings from the CCS811 air quality sensor, a servo motor (3.3V)
+      will be employed for actuation. The SAMW25 microcontroller will trigger the servo motor to open or close
+      windows/doors to improve indoor air quality.</li>
+    <li><strong>HRS 06: RGB LED Light</strong>: Ambient lighting will be managed using an RGB LED light bulb (3.3V),
+      controlled by the SAMW25 microcontroller based on data from the VEML6030 ambient light sensor.</li>
+  </ul>
 
-  <h3>Software Requirements</h3>
+  <p>These hardware components and their functionalities collectively enable the AirLight IoT solution to effectively
+    monitor air quality and ambient conditions, facilitating automated actions to enhance indoor air quality and
+    lighting levels.</p>
+
+  <h3>3.2 Software Requirements</h3>
+  <p>Here are the software requirements for the AirLight IoT-based solution product:</p>
+  <ul>
+    <li><strong>HRS 01 - SAMW25 Microcontroller</strong>: Our project is based on a self-designed PCB. The MCU of this
+      PCB is the SAMW25 microcontroller, with J-link used to flash the code into the PCB.</li>
+    <li><strong>HRS 02 - SHTC3-TR-10KS Sensor</strong>: In compliance with HRS 02, our system employs the SHTC3-TR-10KS
+      sensor, which detects a wide range of temperature (-40 °C to 125 °C) and humidity (0 to 100 %RH). The typical
+      accuracy is ±2 %RH for humidity and ±0.2°C for temperature, but our software configuration displays accuracy to
+      ±1°C for temperature and ±1 %RH for humidity due to integer data type limitations.</li>
+    <li><strong>HRS 03 - 1.8" Color TFT LCD with SPI Interface</strong>: The implementation of the 1.8" Color TFT LCD
+      with an SPI interface in our project was crucial for displaying detailed product information. This LCD module
+      communicates with the microcontroller through the SPI, ensuring swift and stable data updates.</li>
+    <li><strong>HRS 04 - Tiny Code Reader from Useful Sensors</strong>: The Tiny Code Reader captures and interprets QR
+      codes effectively, with an LED indicator that signals the scanning process status. It communicates with the
+      microcontroller via I2C, changing from blue to green upon a successful scan.</li>
+    <li><strong>HRS 05 - ADA1201 Vibrating Motor</strong>: The ADA1201 vibrating motor is integrated as a tactile
+      feedback mechanism. It sends a vibration alert each time an item is scanned and when the user finishes shopping,
+      enhancing the user experience with immediate physical feedback.</li>
+    <li><strong>HRS 06 - System Integration and Control</strong>: Our development team has implemented a system that
+      integrates multiple hardware components to ensure smooth and efficient operation. The device operates on a 3.7V
+      Li-Ion battery, with a tested continuous operational capability of at least 3 hours.</li>
+  </ul>
 
   <h2>4. Project Photos & Screenshots</h2>
 

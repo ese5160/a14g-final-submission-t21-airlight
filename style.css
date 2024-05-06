@@ -2,9 +2,10 @@ body {
     font-family: Arial;
     max-width: 900px;
     margin: 0 auto;
-    padding: 10px;
-    line-height: 1.5;
+    padding: 20px;
+    line-height: 1.8;
     background-color: #ffffff;
+    backdrop-filter: blur(10px) saturate(70%);
   }
 
   img {
@@ -14,4 +15,28 @@ body {
 
   ul {
     padding-left: 20px;
+    text-align: justify;
+    padding-bottom: 10px;
+  }
+
+  li {
+    padding-bottom: 8px;
+  }
+
+  h1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  p {
+    text-align: justify;
+  }
+
+  body {
+    background-image: url('assets/images/backgroundimage.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
   }
