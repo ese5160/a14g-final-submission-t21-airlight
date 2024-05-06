@@ -213,24 +213,26 @@
   <h3>3.2 Software Requirements</h3>
   <p>Here are the software requirements for the AirLight IoT-based solution product:</p>
   <ul>
-    <li><strong>HRS 01 - SAMW25 Microcontroller</strong>: Our project is based on a self-designed PCB. The MCU of this
-      PCB is the SAMW25 microcontroller, with J-link used to flash the code into the PCB.</li>
-    <li><strong>HRS 02 - SHTC3-TR-10KS Sensor</strong>: In compliance with HRS 02, our system employs the SHTC3-TR-10KS
-      sensor, which detects a wide range of temperature (-40 °C to 125 °C) and humidity (0 to 100 %RH). The typical
-      accuracy is ±2 %RH for humidity and ±0.2°C for temperature, but our software configuration displays accuracy to
-      ±1°C for temperature and ±1 %RH for humidity due to integer data type limitations.</li>
-    <li><strong>HRS 03 - 1.8" Color TFT LCD with SPI Interface</strong>: The implementation of the 1.8" Color TFT LCD
-      with an SPI interface in our project was crucial for displaying detailed product information. This LCD module
-      communicates with the microcontroller through the SPI, ensuring swift and stable data updates.</li>
-    <li><strong>HRS 04 - Tiny Code Reader from Useful Sensors</strong>: The Tiny Code Reader captures and interprets QR
-      codes effectively, with an LED indicator that signals the scanning process status. It communicates with the
-      microcontroller via I2C, changing from blue to green upon a successful scan.</li>
-    <li><strong>HRS 05 - ADA1201 Vibrating Motor</strong>: The ADA1201 vibrating motor is integrated as a tactile
-      feedback mechanism. It sends a vibration alert each time an item is scanned and when the user finishes shopping,
-      enhancing the user experience with immediate physical feedback.</li>
-    <li><strong>HRS 06 - System Integration and Control</strong>: Our development team has implemented a system that
-      integrates multiple hardware components to ensure smooth and efficient operation. The device operates on a 3.7V
-      Li-Ion battery, with a tested continuous operational capability of at least 3 hours.</li>
+    <li><strong>SRS 01: Interfacing with MCU, Sensors, and Actuators</strong>: Microchip ATMEL Studio will serve as the
+      primary platform for programming and connecting the SAMW25 microcontroller with the CCS811 air quality sensor,
+      VEML6030 ambient light sensor, servo motor, and RGB LED bulb actuators.</li>
+    <li><strong>SRS 02: Automatic Air Quality Reading</strong>: The CCS811 Air Quality IC will be configured to detect
+      gas presence at regular intervals (e.g., every second, ten seconds, or sixty seconds) in mode 1 for this project.
+      The CO2 levels detected (ranging from 400ppm to 32768ppm) will be transmitted to the SAMW25 via I2C interface and
+      processed using ATMEL Studio.</li>
+    <li><strong>SRS 03: Automatic Light Intensity Reading</strong>: The VEML6030 Ambient Light Sensor will detect
+      ambient light levels within a dynamic range of 0 lux to ~140 kilo lux with high resolution. Light intensity data
+      will be sent to the SAMW25 through I2C and handled using ATMEL Studio.</li>
+    <li><strong>SRS 04: Servo Actuation Constraints</strong>: The SAMW25 will trigger the servo motor when CO2 or TVOC
+      levels exceed specified thresholds, facilitating window/door opening to improve air circulation. There will be
+      checks in place to ensure the window/door is not already open, with servo angle adjusted accordingly.</li>
+    <li><strong>SRS 05: RGB LED Actuation Constraints</strong>: GPIO interface from the SAMW25 will control the RGB LED
+      lights, toggling them based on ambient light levels falling below predefined thresholds.</li>
+    <li><strong>SRS 06: Graphical User Interface (GUI Dashboard)</strong>: The project will feature a user-friendly
+      graphical interface to visualize air quality and light intensity. A Node-RED dashboard deployed on an Azure
+      Virtual Machine will enable bi-directional communication, allowing users to monitor parameters, control actuators,
+      and perform firmware updates remotely. This interface enhances user interaction and management of the IoT system.
+    </li>
   </ul>
 
   <p>All our sensors and actuators worked as per initial plan. Sensors produced results as per their respective
