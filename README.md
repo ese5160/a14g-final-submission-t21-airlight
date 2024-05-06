@@ -38,7 +38,7 @@
 
 - The obtained data of CO2 and TVOC values along with the lux levels in the room are continuously relayed to the MQTT based Node-Red Dashboard which displays the information to the user in real-time. History of the levels is stored on the Azure server and is timestamped and represented through the use of graphs. The user has an option of remotely opening the door of the house through the click of a button on the dashboard or could even turn on the RGB LED through an interactive button. The Node-Red Dashboard also features a functionality to push an over-the-air-firmware-upadte to the IoT Device with latest updates and features if any.
 
-![DSD](assets/images/Detailed_System_Diag.jpeg)
+![Detailed System Diagram](assets/images/Detailed_System_Diag.jpeg)
 
 ### Challenges
 
@@ -170,4 +170,85 @@ Here are the software requirements for the AirLight IoT-based solution product:
 
 - The project will feature a user-friendly graphical interface to visualize air quality and light intensity. A Node-RED dashboard deployed on an Azure Virtual Machine will enable bi-directional communication, allowing users to monitor parameters, control actuators, and perform firmware updates remotely. This interface enhances user interaction and management of the IoT system.
 
+
+**Requirement Review : Metrics achieved as expected:**
+
+    All our sensors and actuators worked as per initial plan. Sensors produced results as per their respective datsheets and the SAM D21 was able to use the function calls of the actuators inside the sensor tasks based on the firmware programmed into it. The RGB LED worked perfectly as the ambient light went below 100lux and turned on. The SERVO motor turned on thereby opening the sliding door of the house model via a rack-pinion gear setup. The SERVO had a small bit of jitter though - that was due to the PWM control not being upto mark on the SERVO.   
+
+
 ## 4. Project Photos & Screenshots
+
+### Final Project
+
+![House](assets/images/IMG-20240505-WA0050.jpg)
+
+![House1](assets/images/IMG-20240505-WA0046.jpg) 
+
+![House2](assets/images/IMG-20240505-WA0043.jpg)
+
+![House3](assets/images/IMG-20240505-WA0034.jpg) 
+
+![House4](assets/images/IMG-20240505-WA0042.jpg)
+
+### PCB Top
+
+![PCBATop](assets/images/PCB_top.jpg)
+
+### PCB Bottom
+
+![PCBBottom](assets/images/PCB_bottom.jpg)
+
+### Thermal Camera Image
+
+![Hand+ThermalImg](assets/images/IMG-20240414-WA0035.jpg)
+
+![ThermalImg](assets/images/FLIR1000001.jpeg)
+
+### Altium Board Design 2D View
+
+![Altium2D](assets/images/PCB_2D.png)
+
+### Altium Board Design 3D View
+
+![Altium3D](assets/images/PCB_3D.png)
+
+### Node Red Dashboard
+
+![Dashboard](assets/images/NodeRedFrontEnd.png)
+
+### Node Red Back-End
+
+![Backend](assets/images/NodeRedBackEnd.png)
+
+### Block Diagram of System
+
+#### Simple System Diagram
+
+![Simple System Diagram](assets/images/SSD.png)
+
+#### Detailed System Diagram
+
+![Detailed System Diagram](assets/images/Detailed_System_Diag.jpeg)
+
+## 5. Project Demo, Recognition and Achievements
+
+### Demo Day Recap
+
+![Demo Day](assets/images/DemoDay1.JPG)
+
+![Demo Day 1](assets/images/DemoDay2.JPG)
+
+![Demo Day 2](assets/images/DemoDay4.jpg)
+
+### Microchip's Award - 2nd Place
+
+![Award](assets/images/DemoDay5.JPG)
+
+#### This guy ↓ went Paragliding immediately after :P 
+**(Just kidding, he had a class \*cries\*)**
+
+![Suraj](assets/images/Suraj.jpg)
+
+### Flash PCB - Thomas Castner(CEO) - Happy about 0 Rework on our PCB
+
+![FlashPCBHappy](assets/images/DemoDay3.JPG)
