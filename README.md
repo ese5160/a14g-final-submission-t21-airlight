@@ -9,6 +9,11 @@
     * Description of test hardware: AirLight PCBA and House Model, CCS811 Air Quality Sensor Development Board, LilyPad RGB LED, SG92R Servo Motor, J-Link, ASUS ROG STRIX G17(Windows Laptop), Macbook Air M2
 
 ## 1. Video Presentation
+<div>
+  <a href="https://youtu.be/Mck-twe9h9U">
+    <img src="assets/images/photo.jpeg" width="100%" title="Click here for demo video"> Click here for demo video
+  </a>
+</div>
 
 ## 2. Project Summary
 
